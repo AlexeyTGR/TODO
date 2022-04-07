@@ -10,6 +10,49 @@
 </head>
 
 <body>
+    <template>
+      <div id="hidden-task-sample" class="task">
+        <textarea name="task-text" id="task-text" class="task-text" cols="30" rows="1"></textarea>
+        <!-- <div id="task-text" class="task-text" contenteditable="true"></div> -->
+        <div class="task-edition">
+            <!-- <button id="edit-task-button" data-edit-task-button>
+              ...
+            </button> -->
+            <div id="edition-block" class="edition-block" data-edition-block>
+                <button  data-mark-task>mark active/comlete</button>
+                <button data-edit-text>edit</button>
+                <button id="delete-button" data-delete-task-button>delete</button>
+            </div>
+        </div>
+    </div>
+  </template>
+
+    <header>
+        <div class="page-title">
+            WELCOME
+        </div>
+        <div class="option-menu">
+
+            <label for="filter-menu">Show:</label>
+            <select name="filter-menu" id="">
+              <option value="all">ALL</option>
+              <option value="active">ACTIVE</option>
+              <option value="complete">COMPLETE</option>
+            </select>
+
+            <div><span>ACTIVE TASKS:</span> 21</div>
+
+
+        </div>
+    </header>
+    <div>
+        <textarea name="base-task" id="base-task" placeholder="What to do?" cols="30" rows="10"></textarea>
+        <button id="new-task-button">
+          NEW TASK
+        </button>
+    </div>
+
+    <div id="tasks-location-block"></div>
 
 
 
