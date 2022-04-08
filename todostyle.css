@@ -8,6 +8,19 @@ body {
   background-color: rgb(214, 225, 231);
 }
 
+textarea {
+  border: none;
+  padding: 5px;
+  resize: none;
+  font-size: 25px;
+}
+
+.base-task {
+  border: none;
+  padding: 10px;
+  font-size: 25px;
+}
+
 .task {
   display: flex;
   justify-content: space-between;
@@ -20,15 +33,21 @@ header {
   text-align: center;
   padding: 20px;
   background-color: rgb(204, 221, 231);
+  font-size: 25px;
 }
 
 .page-title {
   margin: 20px;
 }
 
-#form-to-fill {
+.form-to-fill {
   display: flex;
   justify-content: center;
+  background-color: rgb(203, 222, 233);
+}
+
+.task-text {
+  padding: 10px;
 }
 
 .option-menu {
@@ -43,29 +62,4 @@ header {
 
 .hidden-task {
   display: none;
-}
-
-
-/* .task-edition {
-  position: relative;
-}
-
-.dropdown-menu {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  left: 0;
-  top: 0;
-  visibility: hidden;
-  padding: 5px;
-  z-index: 1;
-} */
-
-
-/* .mark-text {
-  text-decoration: none;
-} */
-
-.task-text {
-  text-decoration: none;
 }

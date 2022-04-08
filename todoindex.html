@@ -13,14 +13,11 @@
     <template>
       <div id="hidden-task-sample" class="task">
         <button  data-mark-task>mark</button>
-        <textarea name="task-text" id="task-text" class="task-text" cols="30" rows="1"></textarea>
-        <!-- <div id="task-text" class="task-text" contenteditable="true"></div> -->
+        <input type="text" disabled="disabled" name="task-text" id="task-text" class="base-task" cols="30" data-text-area></input>
+        <!-- <textarea disabled="disabled" name="task-text" id="task-text" class="task-text" cols="30" data-text-area></textarea> -->
         <div class="task-edition">
-            <!-- <button id="edit-task-button" data-edit-task-button>
-              ...
-            </button> -->
             <div id="edition-block" class="edition-block" data-edition-block>
-                <button data-edit-text>edit</button>
+                <button id="edit-button" data-edit-text>edit</button>
                 <button id="delete-button" data-delete-task-button>delete</button>
             </div>
         </div>
@@ -40,16 +37,19 @@
               <option value="complete">COMPLETE</option>
             </select>
 
-            <div><span>ACTIVE TASKS:</span> 21</div>
+            <div><span>ACTIVE TASKS:</span><span id="task-counter"></span></div>
+            
 
 
         </div>
     </header>
-    <div id='form-to-fill'>
-        <textarea name="base-task" id="base-task" placeholder="What to do?" cols="30" rows="10"></textarea>
+    <div id='form-to-fill' class="form-to-fill">
+        <!-- <textarea name="base-task" id="base-task" placeholder="What to do?" cols="30" rows="2"></textarea> -->
+        <input type="text" name="base-task" id="base-task" class="base-task" placeholder="What to do?" cols="30"></input>
         <button id="new-task-button">
           NEW TASK
         </button>
+        <button id='clear-all'>CLEAR ALL</button>
     </div>
 
     <div id="tasks-location-block"></div>
