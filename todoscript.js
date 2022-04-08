@@ -5,12 +5,13 @@ const newTaskButton = document.getElementById('new-task-button');
 const initialTask = document.getElementById('base-task');
 const deleteTaskButton = document.getElementById('delete-button');
 const taskFilterMenu = document.getElementById('filter-menu');
-const tasksArray = [];
+let tasksArray = [];
 let idCounter = 0;
-let currentID;
-let currentValue;
-let currentStatus;
-let taskAttributes;
+let currentID,
+    currentValue,
+    currentStatus,
+    taskAttributes,
+    filterValue;
 
 
 const newTask = (curID, curValue) => {
@@ -100,6 +101,7 @@ const showFilteredTask = (element, value) => {
 const renderPage = () => {
     clearTasksLocationBlock();
     updateTasks();
+    saveToLocalStorage();
 };
 
 const clearTasksLocationBlock = () => {
@@ -107,12 +109,40 @@ const clearTasksLocationBlock = () => {
 };
 
 const makeNewTask = () => {
+    idCounter++;
     updateTasks();
     newTask(idCounter);
     renderPage();
     initialTask.value = '';
-    idCounter++;
 };
+
+const saveToLocalStorage = () => {
+    let tasksArrayJSON = JSON.stringify(tasksArray);
+    filterValue = taskFilterMenu.value;
+    localStorage.setItem('tasksArray', tasksArrayJSON);
+    localStorage.setItem('idCounter', idCounter);
+    localStorage.setItem('filterValue', filterValue);
+}
+
+const getFromLocalStorage = () => {
+    if (localStorage['tasksArray']) {
+        let savedTasksArray = localStorage.getItem('tasksArray');
+        tasksArray = JSON.parse(savedTasksArray);
+    };
+    if (localStorage['idCounter']) {
+        idCounter = parseInt(localStorage.getItem('idCounter'));
+    };
+    filterValue = localStorage.getItem('filterValue');
+    for (let option of taskFilterMenu) {
+        if (option.value === filterValue) {
+            option.setAttribute('selected', 'selected');
+        };
+    }
+
+};
+
+getFromLocalStorage();
+renderPage();
 
 newTaskButton.addEventListener('click', makeNewTask);
 document.addEventListener('click', deleteTask);
