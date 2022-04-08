@@ -12,6 +12,7 @@
 <body>
     <template>
       <div id="hidden-task-sample" class="task">
+        <button  data-mark-task>mark</button>
         <textarea name="task-text" id="task-text" class="task-text" cols="30" rows="1"></textarea>
         <!-- <div id="task-text" class="task-text" contenteditable="true"></div> -->
         <div class="task-edition">
@@ -19,7 +20,6 @@
               ...
             </button> -->
             <div id="edition-block" class="edition-block" data-edition-block>
-                <button  data-mark-task>mark active/comlete</button>
                 <button data-edit-text>edit</button>
                 <button id="delete-button" data-delete-task-button>delete</button>
             </div>
@@ -34,7 +34,7 @@
         <div class="option-menu">
 
             <label for="filter-menu">Show:</label>
-            <select name="filter-menu" id="">
+            <select name="filter-menu" id="filter-menu">
               <option value="all">ALL</option>
               <option value="active">ACTIVE</option>
               <option value="complete">COMPLETE</option>
@@ -45,7 +45,7 @@
 
         </div>
     </header>
-    <div>
+    <div id='form-to-fill'>
         <textarea name="base-task" id="base-task" placeholder="What to do?" cols="30" rows="10"></textarea>
         <button id="new-task-button">
           NEW TASK

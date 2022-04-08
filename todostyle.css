@@ -26,9 +26,23 @@ header {
   margin: 20px;
 }
 
+#form-to-fill {
+  display: flex;
+  justify-content: center;
+}
+
 .option-menu {
   display: flex;
   justify-content: center;
+}
+
+.complete-task-decoration {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.hidden-task {
+  display: none;
 }
 
 

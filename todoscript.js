@@ -4,7 +4,7 @@ const tasksLocationBlock = document.getElementById('tasks-location-block');
 const newTaskButton = document.getElementById('new-task-button');
 const initialTask = document.getElementById('base-task');
 const deleteTaskButton = document.getElementById('delete-button');
-// const textareaValue = document.getElementById('task-text')
+const taskFilterMenu = document.getElementById('filter-menu');
 const tasksArray = [];
 let idCounter = 0;
 let currentID;
@@ -14,75 +14,115 @@ let taskAttributes;
 
 
 const newTask = (curID, curValue) => {
-    curID = idCounter
+    curID = idCounter;
     curValue = initialTask.value;
     tasksArray.push({
         id: curID,
         status: 'active',
-        value: curValue
-    })
-}
+        value: curValue,
+    });
+};
 
 const updateTasks = () => {
     tasksArray.forEach((item) => {
         currentID = item.id;
         currentStatus = item.status;
         currentValue = item.value;
-        renderTasks(currentID, currentStatus, currentValue)
-    })
-    console.log('tasksArray', tasksArray);
-}
+        renderTasks(currentID, currentStatus, currentValue);
+    });
+};
 const renderTasks = (curID, curStatus, curValue) => {
     let tempTask = document.getElementsByTagName("template")[0];
     let clon = tempTask.content.cloneNode(true);
-    taskAttributes = clon.querySelector('.task')
+
+    taskAttributes = clon.querySelector('.task');
     taskAttributes.setAttribute('id', curID);
     taskAttributes.setAttribute('status', curStatus);
+    if (curStatus === 'complete') {
+        taskAttributes.classList.add('complete-task-decoration')
+    };
+    showFilteredTask(taskAttributes, curStatus);
     let textareaValue = taskAttributes.getElementsByTagName('textarea');
     // let textareaValue = taskAttributes.querySelector('#task-text');
     textareaValue[0].value = curValue;
     // textareaValue.textContent = curValue;
-    tasksLocationBlock.append(clon)
-}
+    tasksLocationBlock.append(clon);
+};
+
+const changeTaskStatus = (event) => {
+    let target = event.target.dataset.markTask;
+    if (target != undefined) {
+        let taskToMark = event.target.closest('.task');
+        let taskToMarkID = taskToMark.getAttribute('id');
+        let indexOfTaskToMark = tasksArray.findIndex((item) => {
+            return item.id === +taskToMarkID;
+        });
+        let currentStatusValue = tasksArray[indexOfTaskToMark].status;
+        if (currentStatusValue === 'complete') {
+            tasksArray[indexOfTaskToMark].status = 'active';
+        } else {
+            tasksArray[indexOfTaskToMark].status = 'complete';
+        };
+        renderPage();
+    };
+};
 
 const deleteTask = (event) => {
     let target = event.target.dataset.deleteTaskButton;
 
     if (target != undefined) {
         let blockToDelete = event.target.closest('.task');
-        let blockToDeleteID = blockToDelete.getAttribute('id')
-        let indexOfTaskToDelete = tasksArray.findIndex(item => {
-            return item.id == blockToDeleteID
+        let blockToDeleteID = blockToDelete.getAttribute('id');
+        let indexOfTaskToDelete = tasksArray.findIndex((item) => {
+            return item.id === +blockToDeleteID;
         });
-        tasksArray.splice(indexOfTaskToDelete, 1)
+        tasksArray.splice(indexOfTaskToDelete, 1);
+        renderPage();
+    };
+};
 
-        clearTasksLocationBlock();
-        updateTasks();
-    }
-}
+const showFilteredTask = (element, value) => {
+    const curretnFilter = taskFilterMenu.value;
+    switch (curretnFilter) {
+        case 'active':
+            if (value == 'complete') {
+                element.classList.add('hidden-task');
+            };
+            break;
+        case 'complete':
+            if (value === 'active') {
+                element.classList.add('hidden-task');
+            };
+            break;
+    };
+};
 
+const renderPage = () => {
+    clearTasksLocationBlock();
+    updateTasks();
+};
 
 const clearTasksLocationBlock = () => {
-    tasksLocationBlock.innerHTML = ''
-}
-
+    tasksLocationBlock.innerHTML = '';
+};
 
 const makeNewTask = () => {
-    updateTasks()
-    newTask(idCounter)
-    clearTasksLocationBlock()
-    updateTasks()
-    idCounter++
-}
+    updateTasks();
+    newTask(idCounter);
+    renderPage();
+    initialTask.value = '';
+    idCounter++;
+};
 
-newTaskButton.addEventListener('click', makeNewTask)
-document.addEventListener('click', deleteTask)
+newTaskButton.addEventListener('click', makeNewTask);
+document.addEventListener('click', deleteTask);
+document.addEventListener('click', changeTaskStatus);
+taskFilterMenu.addEventListener('change', renderPage);
 initialTask.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
         makeNewTask();
-    }
+    };
 });
-console.log('tasksArray', tasksArray);
 
 //////////////////////////////////////////////////////
 
