@@ -10,7 +10,7 @@ const clearAllButton = document.getElementById('clear-all')
 let tasksArray = [];
 let idCounter = 0;
 
-let savedTasksArray = localStorage.getItem('tasksArray');
+const savedTasksArray = localStorage.getItem('tasksArray');
 if (savedTasksArray) {
   tasksArray = JSON.parse(savedTasksArray);
 };
@@ -24,50 +24,50 @@ for (let option of taskFilterMenu) {
   };
 };
 
-const newTask = (curID, curValue) => {
-  curID = idCounter;
-  curValue = initialTask.value;
+const newTask = () => {
   tasksArray.push({
-    id: curID,
+    id: idCounter,
     status: 'active',
-    value: curValue,
+    value: initialTask.value,
   });
 };
 
 const updateTasks = () => {
   tasksArray.forEach((item) => {
-    let currentID = item.id;
-    let currentStatus = item.status;
-    let currentValue = item.value;
+    const currentID = item.id;
+    const currentStatus = item.status;
+    const currentValue = item.value;
     renderTasks(currentID, currentStatus, currentValue);
   });
 };
 
 const renderTasks = (curID, curStatus, curValue) => {
-  let tempTask = document.getElementsByTagName("template")[0];
-  let clon = tempTask.content.cloneNode(true);
+  const tempTask = document.getElementsByTagName("template")[0];
+  const clon = tempTask.content.cloneNode(true);
 
-  let taskAttributes = clon.querySelector('.task');
+  const taskAttributes = clon.querySelector('.task');
   taskAttributes.setAttribute('id', curID);
   taskAttributes.setAttribute('status', curStatus);
   let textareaValue = taskAttributes.querySelector('#task-text');
   textareaValue.value = curValue;
   if (curStatus === 'complete') {
     textareaValue.classList.add('complete-task-decoration');
+    const checkbox = taskAttributes.querySelector('#checkbox-icon');
+    checkbox.setAttribute('src', 'icons/checked.png')
   };
   showFilteredTask(taskAttributes, curStatus);
   tasksLocationBlock.append(clon);
 };
 
 const changeTaskStatus = (event) => {
-  let target = event.target.dataset.markTask;
+  const target = event.target.dataset.markTask;
   if (target != undefined) {
-    let taskToMark = event.target.closest('.task');
+    const taskToMark = event.target.closest('.task');
     let taskToMarkID = taskToMark.getAttribute('id');
-    let indexOfTaskToMark = tasksArray.findIndex((item) => {
+    const indexOfTaskToMark = tasksArray.findIndex((item) => {
       return item.id === +taskToMarkID;
     });
-    let currentStatusValue = tasksArray[indexOfTaskToMark].status;
+    const currentStatusValue = tasksArray[indexOfTaskToMark].status;
     if (currentStatusValue === 'complete') {
       tasksArray[indexOfTaskToMark].status = 'active';
     } else {
@@ -85,9 +85,9 @@ const editTextarea = (event) => {
       target = event.target.dataset.editText;
     };
     if (target != undefined) {
-    let taskToEdit = event.target.closest('.task');
+    const taskToEdit = event.target.closest('.task');
     let taskID = taskToEdit.getAttribute('id');
-    let areaToEdit = taskToEdit.querySelector('.task-text');
+    const areaToEdit = taskToEdit.querySelector('.task-text');
     areaToEdit.removeAttribute('disabled');
     areaToEdit.focus();
     areaToEdit.addEventListener('blur', () => {
@@ -109,11 +109,11 @@ const editTextarea = (event) => {
 };
 
 const deleteTask = (event) => {
-  let target = event.target.dataset.deleteTaskButton;
+  const target = event.target.dataset.deleteTaskButton;
   if (target != undefined) {
-    let blockToDelete = event.target.closest('.task');
+    const blockToDelete = event.target.closest('.task');
     let blockToDeleteID = blockToDelete.getAttribute('id');
-    let indexOfTaskToDelete = tasksArray.findIndex((item) => {
+    const indexOfTaskToDelete = tasksArray.findIndex((item) => {
       return item.id === +blockToDeleteID;
     });
     tasksArray.splice(indexOfTaskToDelete, 1);
@@ -159,14 +159,14 @@ const makeNewTask = () => {
   if (initialTask.value && clearEmptySpaces) {
     idCounter++;
     updateTasks();
-    newTask(idCounter);
+    newTask();
     renderPage();
     initialTask.value = null;
   };
 };
 
 const saveToLocalStorage = () => {
-  let tasksArrayJSON = JSON.stringify(tasksArray);
+  const tasksArrayJSON = JSON.stringify(tasksArray);
   filterValue = taskFilterMenu.value;
   localStorage.setItem('tasksArray', tasksArrayJSON);
   localStorage.setItem('idCounter', idCounter);
@@ -174,7 +174,12 @@ const saveToLocalStorage = () => {
 };
 
 const changeTasksCounter = () => {
-  let currentTasksQuantity = tasksArray.length;
+  let currentTasksQuantity = 0;
+  tasksArray.forEach((item) => {
+    if (item.status === 'active') {
+      currentTasksQuantity++;
+    }
+  })
   tasksCounter.textContent = currentTasksQuantity;
 };
 

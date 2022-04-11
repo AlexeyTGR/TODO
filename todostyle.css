@@ -5,7 +5,12 @@
 }
 
 body {
+  max-width: 600px;
+  width: 100%;
+  align-items: center;
   background-color: rgb(214, 225, 231);
+  margin-left: auto;
+  margin-right: auto; 
 }
 
 textarea {
@@ -17,8 +22,13 @@ textarea {
 
 .base-task {
   border: none;
-  padding: 10px;
+  padding: 0px 10px;
   font-size: 25px;
+}
+
+.base-task:focus {
+  outline: none;
+  border-bottom: 1px solid;
 }
 
 .task {
@@ -26,7 +36,6 @@ textarea {
   justify-content: space-between;
   background-color: lightblue;
   padding: 20px;
-  margin: 20px 200px;
 }
 
 header {
@@ -42,17 +51,37 @@ header {
 
 .form-to-fill {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   background-color: rgb(203, 222, 233);
+  padding: 5px;
+  border: none;
+}
+
+.button {
+  border: none;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+}
+
+.edition-block {
+  height: 30px;
 }
 
 .task-text {
-  padding: 10px;
+  padding: 2px 10px;
 }
 
 .option-menu {
   display: flex;
   justify-content: center;
+  margin: 0px 10px;
 }
 
 .complete-task-decoration {

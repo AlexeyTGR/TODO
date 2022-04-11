@@ -12,13 +12,12 @@
 <body>
     <template>
       <div id="hidden-task-sample" class="task">
-        <button  data-mark-task>mark</button>
-        <input type="text" disabled="disabled" name="task-text" id="task-text" class="base-task" cols="30" data-text-area></input>
-        <!-- <textarea disabled="disabled" name="task-text" id="task-text" class="task-text" cols="30" data-text-area></textarea> -->
+        <button class="button checkbox" data-mark-task><img src="icons/unchecked.png" id="checkbox-icon" class="icon" alt="unchecked" data-mark-task></button>
+        <input type="text" disabled="disabled" name="task-text" id="task-text" class="base-task task-text" cols="30" data-text-area></input>
         <div class="task-edition">
             <div id="edition-block" class="edition-block" data-edition-block>
-                <button id="edit-button" data-edit-text>edit</button>
-                <button id="delete-button" data-delete-task-button>delete</button>
+                <button id="edit-button" class="button" data-edit-text><img src="icons/edit.png" class="icon" alt="edit" data-edit-text></button>
+                <button id="delete-button" class="button" data-delete-task-button><img src="icons/delete.png" class="icon" alt="delete" data-delete-task-button></button>
             </div>
         </div>
     </div>
@@ -26,33 +25,32 @@
 
     <header>
         <div class="page-title">
-            WELCOME
-        </div>
-        <div class="option-menu">
-
-            <label for="filter-menu">Show:</label>
-            <select name="filter-menu" id="filter-menu">
-              <option value="all">ALL</option>
-              <option value="active">ACTIVE</option>
-              <option value="complete">COMPLETE</option>
-            </select>
-
-            <div><span>ACTIVE TASKS:</span><span id="task-counter"></span></div>
-            
-
-
+            TODOS
         </div>
     </header>
     <div id='form-to-fill' class="form-to-fill">
-        <!-- <textarea name="base-task" id="base-task" placeholder="What to do?" cols="30" rows="2"></textarea> -->
         <input type="text" name="base-task" id="base-task" class="base-task" placeholder="What to do?" cols="30"></input>
-        <button id="new-task-button">
-          NEW TASK
+        <button id="new-task-button" class="button">
+            <img src="icons/newtask.png" alt="add-new-task">
         </button>
-        <button id='clear-all'>CLEAR ALL</button>
+        <button id='clear-all' class="button">CLEAR ALL</button>
     </div>
-
+    
     <div id="tasks-location-block"></div>
+    <div class="option-menu">
+
+        <label for="filter-menu">Show:</label>
+        <select name="filter-menu" id="filter-menu">
+          <option value="all">All</option>
+          <option value="active">Active</option>
+          <option value="complete">Complete</option>
+        </select>
+
+        <div><span>Active tasks:</span><span id="task-counter"></span></div>
+        
+
+
+    </div>
 
 
 
